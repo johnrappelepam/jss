@@ -30,6 +30,7 @@ describe('GraphQLLayoutService', () => {
           layout: {
             item: {
               rendered: {
+                displayname: '',
                 sitecore: {
                   context: {
                     pageEditing: false,
@@ -65,7 +66,8 @@ describe('GraphQLLayoutService', () => {
             name: 'styleguide',
             layoutId: 'xxx',
           },
-        }
+        },
+        displayname: '',
       },
     });
   });

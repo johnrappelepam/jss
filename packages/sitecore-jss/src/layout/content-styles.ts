@@ -28,11 +28,11 @@ export const getContentStylesheetLink = (
   sitecoreEdgeContextId: string,
   sitecoreEdgeUrl = SITECORE_EDGE_URL_DEFAULT
 ): HTMLLink | null => {
-  if (!layoutData.sitecore.route) return null;
+  if (!layoutData.rendered.sitecore.route) return null;
 
   const config: Config = { loadStyles: false };
 
-  traverseComponent(layoutData.sitecore.route, config);
+  traverseComponent(layoutData.rendered.sitecore.route, config);
 
   if (!config.loadStyles) return null;
 

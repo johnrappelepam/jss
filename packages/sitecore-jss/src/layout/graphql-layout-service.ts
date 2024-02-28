@@ -76,13 +76,13 @@ export class GraphQLLayoutService extends LayoutServiceBase {
       this.serviceConfig.siteName
     );
     const data = await this.graphQLClient.request<{
-      layout: { item: { rendered: LayoutServiceData } };
+      layout: { item: LayoutServiceData };
     }>(query);
 
     // If `rendered` is empty -> not found
     return (
-      data?.layout?.item?.rendered || {
-        sitecore: { context: { pageEditing: false, language }, route: null },
+      data?.layout?.item || {
+        rendered: { sitecore: { context: { pageEditing: false, language } }, route: null },
       }
     );
   }
@@ -121,16 +121,14 @@ export class GraphQLLayoutService extends LayoutServiceBase {
   protected getLayoutQuery(itemPath: string, language?: string): string {
     const languageVariable = language ? `, language:"${language}"` : '';
 
-    const layoutQuery = this.serviceConfig.formatLayoutQuery
+    return this.serviceConfig.formatLayoutQuery
       ? this.serviceConfig.formatLayoutQuery(this.serviceConfig.siteName, itemPath, language)
-      : `layout(site:"${this.serviceConfig.siteName}", routePath:"${itemPath}"${languageVariable})`;
-
-    return `query {
-      ${layoutQuery}{
-        item {
-          rendered
-        }
-      }
-    }`;
+      : `query { 
+           layout(site:"${this.serviceConfig.siteName}", routePath:"${itemPath}"${languageVariable}){
+            item {
+              rendered
+            }
+          }
+        }`;
   }
 }

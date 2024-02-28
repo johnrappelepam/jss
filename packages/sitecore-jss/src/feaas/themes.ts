@@ -29,9 +29,9 @@ export function getFEAASLibraryStylesheetLinks(
 ): HTMLLink[] {
   const ids = new Set<string>();
 
-  if (!layoutData.sitecore.route) return [];
+  if (!layoutData.rendered.sitecore.route) return [];
 
-  traverseComponent(layoutData.sitecore.route, ids);
+  traverseComponent(layoutData.rendered.sitecore.route, ids);
 
   return [...ids].map((id) => ({
     href: getStylesheetUrl(id, sitecoreEdgeContextId, sitecoreEdgeUrl),

@@ -55,15 +55,17 @@ describe('GraphQLLayoutService', () => {
     const data = await service.fetchLayoutData('/styleguide', 'da-DK');
 
     expect(data).to.deep.equal({
-      sitecore: {
-        context: {
-          pageEditing: false,
-          site: { name: 'JssNextWeb' },
-        },
-        route: {
-          name: 'styleguide',
-          layoutId: 'xxx',
-        },
+      rendered: {
+        sitecore: {
+          context: {
+            pageEditing: false,
+            site: { name: 'JssNextWeb' },
+          },
+          route: {
+            name: 'styleguide',
+            layoutId: 'xxx',
+          },
+        }
       },
     });
   });
@@ -114,14 +116,16 @@ describe('GraphQLLayoutService', () => {
     const data = await service.fetchLayoutData('/styleguide', 'da-DK');
 
     expect(data).to.deep.equal({
-      sitecore: {
-        context: {
-          pageEditing: false,
-          site: { name: 'JssNextWeb' },
-        },
-        route: {
-          name: 'styleguide',
-          layoutId: 'xxx',
+      rendered: {
+        sitecore: {
+          context: {
+            pageEditing: false,
+            site: { name: 'JssNextWeb' },
+          },
+          route: {
+            name: 'styleguide',
+            layoutId: 'xxx',
+          },
         },
       },
     });
@@ -169,14 +173,16 @@ describe('GraphQLLayoutService', () => {
     const data = await service.fetchLayoutData('/styleguide');
 
     expect(data).to.deep.equal({
-      sitecore: {
-        context: {
-          pageEditing: false,
-          site: { name: 'JssNextWeb' },
-        },
-        route: {
-          name: 'styleguide',
-          layoutId: 'xxx',
+      rendered: {
+        sitecore: {
+          context: {
+            pageEditing: false,
+            site: { name: 'JssNextWeb' },
+          },
+          route: {
+            name: 'styleguide',
+            layoutId: 'xxx',
+          },
         },
       },
     });
@@ -189,15 +195,17 @@ describe('GraphQLLayoutService', () => {
       },
     })
       .post('/graphql', (body) => {
+        console.log('the body', body);
         return (
           body.query.replace(/\n|\s/g, '') ===
-          'query{layout111(site:"supersite",route:"/styleguide",language:"en"){item{rendered}}}'
+          'query{layout(site:"supersite",route:"/styleguide",language:"en"){item{displayNamerendered}}}'
         );
       })
       .reply(200, {
         data: {
           layout: {
             item: {
+              displayName: 'Style Guide',
               rendered: {
                 sitecore: {
                   context: {
@@ -220,20 +228,24 @@ describe('GraphQLLayoutService', () => {
       apiKey: apiKey,
       siteName: 'supersite',
       formatLayoutQuery: (siteName, itemPath, locale) =>
-        `layout111(site:"${siteName}",route:"${itemPath}",language:"${locale || 'en'}")`,
+        `query{layout(site:"${siteName}",route:"${itemPath}",language:"${locale ||
+          'en'}"){item{displayName rendered}}}`,
     });
 
     const data = await service.fetchLayoutData('/styleguide');
 
     expect(data).to.deep.equal({
-      sitecore: {
-        context: {
-          pageEditing: false,
-          site: { name: 'JssNextWeb' },
-        },
-        route: {
-          name: 'styleguide',
-          layoutId: 'xxx',
+      displayName: 'Style Guide',
+      rendered: {
+        sitecore: {
+          context: {
+            pageEditing: false,
+            site: { name: 'JssNextWeb' },
+          },
+          route: {
+            name: 'styleguide',
+            layoutId: 'xxx',
+          },
         },
       },
     });
@@ -262,10 +274,12 @@ describe('GraphQLLayoutService', () => {
     const data = await service.fetchLayoutData('/styleguide', 'da-DK');
 
     expect(data).to.deep.equal({
-      sitecore: {
-        context: {
-          pageEditing: false,
-          language: 'da-DK',
+      rendered: {
+        sitecore: {
+          context: {
+            pageEditing: false,
+            language: 'da-DK',
+          },
         },
         route: null,
       },

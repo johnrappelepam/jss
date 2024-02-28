@@ -18,21 +18,27 @@ describe('content-styles', () => {
   describe('getContentStylesheetLink', () => {
     it('should return null when route data is empty', () => {
       expect(
-        getContentStylesheetLink({ sitecore: { context: {}, route: null } }, sitecoreEdgeContextId)
+        getContentStylesheetLink(
+          { rendered: { sitecore: { context: {}, route: null } }, displayname: '' },
+          sitecoreEdgeContextId
+        )
       ).to.be.null;
     });
 
     it('should set "loadStyles: false" when layout does not have a ck-content class', () => {
       const layoutData: LayoutServiceData = {
-        sitecore: {
-          context: {},
-          route: {
-            name: 'route',
-            placeholders: {
-              car: [{ componentName: 'foo', fields: { car: falsyValue } }],
+        rendered: {
+          sitecore: {
+            context: {},
+            route: {
+              name: 'route',
+              placeholders: {
+                car: [{ componentName: 'foo', fields: { car: falsyValue } }],
+              },
             },
           },
         },
+        displayname: '',
       };
 
       expect(getContentStylesheetLink(layoutData, sitecoreEdgeContextId)).to.be.null;
@@ -40,23 +46,26 @@ describe('content-styles', () => {
 
     it('should set "loadStyles: true" when layout has a ck-content class', () => {
       const layoutData: LayoutServiceData = {
-        sitecore: {
-          context: {},
-          route: {
-            name: 'route',
-            placeholders: {
-              car: [
-                {
-                  componentName: 'foo',
-                  fields: { car: falsyValue },
-                  placeholders: {
-                    bar: [{ componentName: 'cow', fields: { dog: truthyValue } }],
+        rendered: {
+          sitecore: {
+            context: {},
+            route: {
+              name: 'route',
+              placeholders: {
+                car: [
+                  {
+                    componentName: 'foo',
+                    fields: { car: falsyValue },
+                    placeholders: {
+                      bar: [{ componentName: 'cow', fields: { dog: truthyValue } }],
+                    },
                   },
-                },
-              ],
+                ],
+              },
             },
           },
         },
+        displayname: '',
       };
 
       expect(getContentStylesheetLink(layoutData, sitecoreEdgeContextId)).to.deep.equal({

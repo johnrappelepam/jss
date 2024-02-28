@@ -63,7 +63,7 @@ export class SitecoreContext extends React.Component<SitecoreContextProps, Sitec
     return {
       route: layoutData.sitecore.route,
       itemId: layoutData.sitecore.route?.itemId,
-      ...layoutData.sitecore.context,
+      ...layoutData.rendered.sitecore.context,
     };
   }
 

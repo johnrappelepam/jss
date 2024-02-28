@@ -12,9 +12,12 @@ export const EDITING_COMPONENT_ID = 'editing-component';
  * A reply from the Sitecore Layout Service
  */
 export interface LayoutServiceData {
-  sitecore: LayoutServiceContextData & {
-    route: RouteData | null;
+  rendered: unknown & {
+    sitecore: LayoutServiceContextData & {
+      route: RouteData | null;
+    };
   };
+  displayname: string;
 }
 
 /**

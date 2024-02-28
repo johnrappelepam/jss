@@ -9,15 +9,18 @@ describe('themes', () => {
   describe('getComponentLibraryStylesheetLinks', () => {
     const setBasicLayoutData = (component: ComponentRendering | HtmlElementRendering) => {
       return {
-        sitecore: {
-          context: {},
-          route: {
-            name: 'home',
-            placeholders: {
-              main: [component],
+        rendered: {
+          sitecore: {
+            context: {},
+            route: {
+              name: 'home',
+              placeholders: {
+                main: [component],
+              },
             },
           },
         },
+        displayname: '',
       };
     };
 
@@ -25,10 +28,13 @@ describe('themes', () => {
       expect(
         getComponentLibraryStylesheetLinks(
           {
-            sitecore: {
-              context: {},
-              route: null,
+            rendered: {
+              sitecore: {
+                context: {},
+                route: null,
+              },
             },
+            displayname: '',
           },
           sitecoreEdgeContextId
         )
@@ -245,14 +251,17 @@ describe('themes', () => {
       expect(
         getComponentLibraryStylesheetLinks(
           {
-            sitecore: {
-              context: {},
-              route: {
-                name: 'home',
-                fields: {},
-                placeholders: {},
+            rendered: {
+              sitecore: {
+                context: {},
+                route: {
+                  name: 'home',
+                  fields: {},
+                  placeholders: {},
+                },
               },
             },
+            displayname: '',
           },
           sitecoreEdgeContextId
         )
@@ -275,148 +284,151 @@ describe('themes', () => {
       expect(
         getComponentLibraryStylesheetLinks(
           {
-            sitecore: {
-              context: {},
-              route: {
-                name: 'home',
-                fields: {
-                  CSSStyles: {
-                    value: '-library--foo',
+            rendered: {
+              sitecore: {
+                context: {},
+                route: {
+                  name: 'home',
+                  fields: {
+                    CSSStyles: {
+                      value: '-library--foo',
+                    },
+                    LibraryId: {
+                      value: 'bar',
+                    },
                   },
-                  LibraryId: {
-                    value: 'bar',
+                  placeholders: {
+                    x: [
+                      {
+                        componentName: 'x1-component',
+                        fields: {
+                          LibraryId: {
+                            value: 'foo',
+                          },
+                        },
+                        placeholders: {
+                          x1: [
+                            {
+                              componentName: 'x11-component',
+                              fields: {
+                                CSSStyles: {
+                                  value: '-library--x11',
+                                },
+                              },
+                            },
+                            {
+                              componentName: 'x12-component',
+                              fields: {
+                                CSSStyles: {
+                                  value: '-library--x12',
+                                },
+                                LibraryId: {
+                                  value: 'x12-id',
+                                },
+                              },
+                            },
+                          ],
+                          x2: [
+                            {
+                              componentName: 'x21-component',
+                              fields: {
+                                LibraryId: {
+                                  value: 'x21',
+                                },
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                    y: [
+                      {
+                        componentName: 'y1-component',
+                        fields: {
+                          LibraryId: {
+                            value: 'y1',
+                          },
+                        },
+                      },
+                      {
+                        componentName: 'y2-component',
+                        fields: {
+                          CSSStyles: {
+                            value: 'custom-style',
+                          },
+                          LibraryId: {
+                            value: 'y2',
+                          },
+                        },
+                      },
+                    ],
+                    z: [
+                      {
+                        componentName: 'z1-component',
+                        fields: {
+                          CSSStyles: {
+                            value: '-library--z1',
+                          },
+                        },
+                        placeholders: {
+                          z1: [
+                            {
+                              componentName: 'z11-component',
+                              fields: {
+                                CSSStyles: {
+                                  value: '-library--z11',
+                                },
+                              },
+                            },
+                          ],
+                          z2: [
+                            {
+                              componentName: 'z21-component',
+                              fields: {
+                                LibraryId: {
+                                  value: 'z21',
+                                },
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                    zx: [
+                      {
+                        componentName: 'zx1-component',
+                        fields: {
+                          Styles: {
+                            value: 'foo',
+                          },
+                        },
+                        placeholders: {
+                          zx1: [
+                            {
+                              componentName: 'zx11-component',
+                              fields: {
+                                LibraryId: {
+                                  value: 'zx11',
+                                },
+                              },
+                            },
+                          ],
+                          zx2: [
+                            {
+                              componentName: 'zx21-component',
+                              params: {
+                                Styles: '-library--zx21',
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
                   },
-                },
-                placeholders: {
-                  x: [
-                    {
-                      componentName: 'x1-component',
-                      fields: {
-                        LibraryId: {
-                          value: 'foo',
-                        },
-                      },
-                      placeholders: {
-                        x1: [
-                          {
-                            componentName: 'x11-component',
-                            fields: {
-                              CSSStyles: {
-                                value: '-library--x11',
-                              },
-                            },
-                          },
-                          {
-                            componentName: 'x12-component',
-                            fields: {
-                              CSSStyles: {
-                                value: '-library--x12',
-                              },
-                              LibraryId: {
-                                value: 'x12-id',
-                              },
-                            },
-                          },
-                        ],
-                        x2: [
-                          {
-                            componentName: 'x21-component',
-                            fields: {
-                              LibraryId: {
-                                value: 'x21',
-                              },
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                  y: [
-                    {
-                      componentName: 'y1-component',
-                      fields: {
-                        LibraryId: {
-                          value: 'y1',
-                        },
-                      },
-                    },
-                    {
-                      componentName: 'y2-component',
-                      fields: {
-                        CSSStyles: {
-                          value: 'custom-style',
-                        },
-                        LibraryId: {
-                          value: 'y2',
-                        },
-                      },
-                    },
-                  ],
-                  z: [
-                    {
-                      componentName: 'z1-component',
-                      fields: {
-                        CSSStyles: {
-                          value: '-library--z1',
-                        },
-                      },
-                      placeholders: {
-                        z1: [
-                          {
-                            componentName: 'z11-component',
-                            fields: {
-                              CSSStyles: {
-                                value: '-library--z11',
-                              },
-                            },
-                          },
-                        ],
-                        z2: [
-                          {
-                            componentName: 'z21-component',
-                            fields: {
-                              LibraryId: {
-                                value: 'z21',
-                              },
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                  zx: [
-                    {
-                      componentName: 'zx1-component',
-                      fields: {
-                        Styles: {
-                          value: 'foo',
-                        },
-                      },
-                      placeholders: {
-                        zx1: [
-                          {
-                            componentName: 'zx11-component',
-                            fields: {
-                              LibraryId: {
-                                value: 'zx11',
-                              },
-                            },
-                          },
-                        ],
-                        zx2: [
-                          {
-                            componentName: 'zx21-component',
-                            params: {
-                              Styles: '-library--zx21',
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
                 },
               },
             },
+            displayname: 'Home',
           },
           sitecoreEdgeContextId
         )

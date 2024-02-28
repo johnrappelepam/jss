@@ -34,7 +34,7 @@ describe('layout-personalizer', () => {
     it('should set variantId on Sitecore context', () => {
       const variant = 'test';
       personalizeLayout(layoutData, variant);
-      expect(layoutData.sitecore.context.variantId).to.equal(variant);
+      expect(layoutData.rendered.sitecore.context.variantId).to.equal(variant);
     });
   });
 

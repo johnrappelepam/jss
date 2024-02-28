@@ -25,47 +25,53 @@ export const city_bike_audience = {
 };
 
 export const layoutData = {
-  sitecore: {
-    context: {
-      pageEditing: false,
-      site: { name: 'JssNextWeb' },
-      visitorIdentificationTimestamp: 1038543,
-      language: 'en',
-      variantId: undefined,
-    },
-    route: {
-      name: 'landingpage',
-      placeholders: {
-        'jss-main': [
-          {
-            uid: '0b6d23d8-c50e-4e79-9eca-317ec43e82b0',
-            componentName: 'ContentBlock',
-            dataSource: 'e020fb58-1be8-4537-aab8-67916452ecf2',
-            fields: { content: { value: '' }, heading: { value: 'Default Content' } },
-            experiences: {
-              mountain_bike_audience: mountain_bike_audience,
-              city_bike_audience: city_bike_audience,
+  rendered: {
+    sitecore: {
+      context: {
+        pageEditing: false,
+        site: { name: 'JssNextWeb' },
+        visitorIdentificationTimestamp: 1038543,
+        language: 'en',
+        variantId: undefined,
+      },
+      route: {
+        name: 'landingpage',
+        placeholders: {
+          'jss-main': [
+            {
+              uid: '0b6d23d8-c50e-4e79-9eca-317ec43e82b0',
+              componentName: 'ContentBlock',
+              dataSource: 'e020fb58-1be8-4537-aab8-67916452ecf2',
+              fields: { content: { value: '' }, heading: { value: 'Default Content' } },
+              experiences: {
+                mountain_bike_audience: mountain_bike_audience,
+                city_bike_audience: city_bike_audience,
+              },
             },
-          },
-        ],
+          ],
+        },
       },
     },
   },
+  displayname: '',
 };
 
 export const layoutDataWithoutPlaceholder = {
-  sitecore: {
-    context: {
-      pageEditing: false,
-      site: { name: 'JssNextWeb' },
-      visitorIdentificationTimestamp: 1038543,
-      language: 'en',
-    },
-    route: {
-      name: 'landingpage',
-      placeholders: {},
+  rendered: {
+    sitecore: {
+      context: {
+        pageEditing: false,
+        site: { name: 'JssNextWeb' },
+        visitorIdentificationTimestamp: 1038543,
+        language: 'en',
+      },
+      route: {
+        name: 'landingpage',
+        placeholders: {},
+      },
     },
   },
+  displayname: '',
 };
 
 export const componentWithExperiences = {
